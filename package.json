@@ -1,0 +1,25 @@
+{
+  "name": "axfr-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stenstromen/axfr-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stenstromen/axfr-backend/issues"
+  },
+  "homepage": "https://github.com/Stenstromen/axfr-backend#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
