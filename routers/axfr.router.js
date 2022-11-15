@@ -4,6 +4,7 @@ const axfrController = require("../controllers/axfr.controller");
 const axfrRouter = express.Router();
 
 axfrRouter.get("/se", axfrController.sendSeDates)
+axfrRouter.get("/nu", axfrController.sendNuDates)
 axfrRouter.get("/se/:date/:page", axfrController.sendSeRows);
 axfrRouter.get("/nu/:date/:page", axfrController.sendNuRows);
 
