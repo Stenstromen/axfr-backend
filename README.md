@@ -1,3 +1,4 @@
+[![axfrbackend CI/CD](https://github.com/Stenstromen/axfr-backend/actions/workflows/main.yml/badge.svg)](https://github.com/Stenstromen/axfr-backend/actions/workflows/main.yml)[![axfrbackend CI/CD](https://github.com/Stenstromen/axfr-backend/actions/workflows/main.yml/badge.svg)](https://github.com/Stenstromen/axfr-backend/actions/workflows/main.yml)
 # axfr-backend
 
 
