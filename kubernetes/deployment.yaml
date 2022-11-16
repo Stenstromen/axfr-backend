@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axfr-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axfr-backend
+  template:
+    metadata:
+      labels:
+        app: axfr-backend
+    spec:
+      containers:
+        - name: axfr
+          image: dockr.it/axfrbackend:k8s
+          imagePullPolicy: Always
+          env:
+          - name: MYSQL_HOSTNAME
+            value: mariadb-service
+          - name: MYSQL_SE_DATABASE
+            value: sediff
+          - name: MYSQL_SE_USERNAME
+            value: sediff
+          - name: MYSQL_SE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: axfrsemysqlpassword 
+                key: password
+          - name: MYSQL_NU_DATABASE
+            value: nudiff
+          - name: MYSQL_NU_USERNAME
+            value: nudiff
+          - name: MYSQL_NU_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: axfrnumysqlpassword 
+                key: password
+          - name: AUTHHEADER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: axfrbackendauthheaderpassword
+                key: secret
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: dockrit
