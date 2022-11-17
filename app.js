@@ -1,8 +1,11 @@
 const express = require("express");
 const compression = require("compression");
+const cors = require("cors");
 const app = express();
 const axfrRouter = require("./routers/axfr.router");
 const AUTHHEADER_PASSWORD = process.env.AUTHHEADER_PASSWORD;
+
+app.use(cors());
 
 app.use((req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization !== AUTHHEADER_PASSWORD ) {
