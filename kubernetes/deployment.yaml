@@ -41,7 +41,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: axfrbackendauthheaderpassword
-                key: secret
+                key: password
           ports:
             - containerPort: 8080
       imagePullSecrets:
