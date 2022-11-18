@@ -5,7 +5,7 @@ const app = express();
 const axfrRouter = require("./routers/axfr.router");
 const AUTHHEADER_PASSWORD = process.env.AUTHHEADER_PASSWORD;
 
-app.use(cors());
+app.use(cors({origin: true}));
 
 app.use((req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization !== AUTHHEADER_PASSWORD ) {
