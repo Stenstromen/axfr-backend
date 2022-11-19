@@ -66,7 +66,7 @@ function sendNuDates(req, res) {
   if (pageordate.length < 8) {
     let rows1 = pageordate * 18;
     let rows2;
-    pageordate === "0" ? (rows2 = 0) : (rows2 = rows1 + 18);
+    pageordate === "0" ? (rows2 = 0) : (rows2 = rows1);
     const sql = `SELECT date, amount FROM dates ORDER BY date DESC OFFSET ${rows2} ROWS FETCH FIRST 18 ROWS ONLY;`;
     nuCon.query(sql, function (err, result) {
       if (err) throw err;
@@ -87,6 +87,7 @@ function sendNuRows(req, res) {
     errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
     return res.status(400).json({ errors: extractedErrors[0].author });
   }
+
   const date = req.params.date;
   const page = req.params.page;
   let rows1 = page * 18;
@@ -94,7 +95,7 @@ function sendNuRows(req, res) {
 
   page === "0" ? (rows2 = 18) : (rows2 = rows1);
 
-  const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC LIMIT ${rows2}`;
+  const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC OFFSET ${rows2} ROWS FETCH FIRST 18 ROWS ONLY;`;
   nuCon.query(sql, function (err, result) {
     if (err) throw err;
     res.json(result);
