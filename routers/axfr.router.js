@@ -4,8 +4,16 @@ const { param } = require("express-validator");
 const axfrController = require("../controllers/axfr.controller");
 const axfrRouter = express.Router();
 
-axfrRouter.get("/se", axfrController.sendSeDates);
-axfrRouter.get("/nu", axfrController.sendNuDates);
+axfrRouter.get(
+  "/se/:pageordate",
+  [param("pageordate").not().isEmpty(), param("pageordate").isInt()],
+  axfrController.sendSeDates
+);
+axfrRouter.get(
+  "/nu/:pageordate",
+  [param("pageordate").not().isEmpty(), param("pageordate").isInt()],
+  axfrController.sendNuDates
+);
 axfrRouter.get(
   "/se/:date/:page",
   [
