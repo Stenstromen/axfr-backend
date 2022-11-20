@@ -43,7 +43,8 @@ function sendSeRows(req, res) {
   let rows1 = page * 18;
   let rows2;
 
-  page === "0" ? (rows2 = 18) : (rows2 = rows1);
+  page === "0" ? (rows2 = 0) : (rows2 = rows1);
+  page === "1" ? (rows2 = 0) : (rows2 = rows1);
 
   const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC OFFSET ${rows2} ROWS FETCH FIRST 18 ROWS ONLY;`;
   seCon.query(sql, function (err, result) {
@@ -93,7 +94,8 @@ function sendNuRows(req, res) {
   let rows1 = page * 18;
   let rows2;
 
-  page === "0" ? (rows2 = 18) : (rows2 = rows1);
+  page === "0" ? (rows2 = 0) : (rows2 = rows1);
+  page === "1" ? (rows2 = 0) : (rows2 = rows1);
 
   const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC OFFSET ${rows2} ROWS FETCH FIRST 18 ROWS ONLY;`;
   nuCon.query(sql, function (err, result) {
