@@ -43,9 +43,6 @@ function sendSeRows(req, res) {
   let rows1 = page * 20;
   let rows2 = page * 20;
 
-  //page === "0" ? (rows2 = 0) : (rows2 = rows1);
-  //page === "1" ? (rows2 = 0) : (rows2 = rows1);
-
   const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC OFFSET ${rows2} ROWS FETCH FIRST 20 ROWS ONLY;`;
   seCon.query(sql, function (err, result) {
     if (err) throw err;
@@ -94,9 +91,6 @@ function sendNuRows(req, res) {
   let rows1 = page * 20;
   let rows2 = page * 20;
 
-  //page === "0" ? (rows2 = 0) : (rows2 = rows1);
-  //page === "1" ? (rows2 = 0) : (rows2 = rows1);
-
   const sql = `SELECT domain FROM domains JOIN dates ON domains.dategrp = dates.id WHERE date = ${date} ORDER BY domain ASC OFFSET ${rows2} ROWS FETCH FIRST 20 ROWS ONLY;`;
   nuCon.query(sql, function (err, result) {
     if (err) throw err;
@@ -104,9 +98,47 @@ function sendNuRows(req, res) {
   });
 }
 
+function searchDomains(req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const extractedErrors = [];
+    errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
+    return res.status(400).json({ errors: extractedErrors[0].author });
+  }
+
+  const tld = req.params.tld;
+  const query = req.params.query;
+
+  const querySql = `SELECT domain FROM domains WHERE domain like "%${query}%";`;
+  //const dateSql = `SELECT date FROM dates ORDER BY date DESC LIMIT 1;`
+
+  switch (tld) {
+    case "se":
+      /* seCon.query(dateSql, (err, result) => {
+        if (err) throw err;
+        date = result[0].date.toString().replace(/(\d{4})(\d{2})(\d{2})/g, "$1-$2-$3")
+      }) */
+      seCon.query(querySql, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+      });
+      break;
+    case "nu":
+      nuCon.query(querySql, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+      });
+      break;
+    default:
+      res.end();
+      break;
+  }
+}
+
 module.exports = {
   sendSeDates,
   sendSeRows,
   sendNuDates,
   sendNuRows,
+  searchDomains,
 };

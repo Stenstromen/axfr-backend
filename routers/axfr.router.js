@@ -35,4 +35,13 @@ axfrRouter.get(
   axfrController.sendNuRows
 );
 
+axfrRouter.get(
+  "/search/:tld/:query",
+  [
+    param("tld").isString().not().isEmpty().isLength({ max: 2 }),
+    param("query").isString().not().isEmpty().isLength({ min: 3 }),
+  ],
+  axfrController.searchDomains
+);
+
 module.exports = axfrRouter;
