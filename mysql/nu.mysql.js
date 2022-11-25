@@ -1,4 +1,9 @@
-if (!process.env.MYSQL_NU_DATABASE || !process.env.MYSQL_NU_USERNAME || !process.env.MYSQL_NU_PASSWORD) return;
+if (
+  !process.env.MYSQL_NU_DATABASE ||
+  !process.env.MYSQL_NU_USERNAME ||
+  !process.env.MYSQL_NU_PASSWORD
+)
+  return;
 
 const mysql = require("mysql");
 
