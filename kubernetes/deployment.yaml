@@ -50,7 +50,7 @@ spec:
             value: nudump
           - name: MYSQL_NUDUMP_USERNAME
             value: nudump
-          - name: MYSQL_NUDUMO_PASSWORD
+          - name: MYSQL_NUDUMP_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: axfrnudumpmysqlpassword 
