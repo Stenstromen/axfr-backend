@@ -28,6 +28,15 @@ spec:
               secretKeyRef:
                 name: axfrsemysqlpassword 
                 key: password
+          - name: MYSQL_SEDUMP_DATABASE
+            value: sedump
+          - name: MYSQL_SEDUMP_USERNAME
+            value: sedump
+          - name: MYSQL_SEDUMP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: axfrsedumpmysqlpassword 
+                key: password
           - name: MYSQL_NU_DATABASE
             value: nudiff
           - name: MYSQL_NU_USERNAME
@@ -36,6 +45,15 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: axfrnumysqlpassword 
+                key: password
+          - name: MYSQL_NUDUMP_DATABASE
+            value: nudump
+          - name: MYSQL_NUDUMP_USERNAME
+            value: nudump
+          - name: MYSQL_NUDUMO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: axfrnudumpmysqlpassword 
                 key: password
           - name: AUTHHEADER_PASSWORD
             valueFrom:

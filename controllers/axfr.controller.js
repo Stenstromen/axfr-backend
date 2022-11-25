@@ -1,6 +1,8 @@
 const { validationResult } = require("express-validator");
 const seCon = require("../mysql/se.mysql");
 const nuCon = require("../mysql/nu.mysql");
+const seDumpCon = require("../mysql/seDump.mysql");
+const nuDumpCon = require("../mysql/nuDump.mysql")
 
 function sendSeDates(req, res) {
   const errors = validationResult(req);
@@ -109,7 +111,7 @@ function searchDomains(req, res) {
   const tld = req.params.tld;
   const query = req.params.query;
 
-  const querySql = `SELECT domain FROM domains WHERE domain like "%${query}%";`;
+  const querySql = `SELECT domain FROM domains WHERE domain like "%${query}%" ORDER BY CHAR_LENGTH(domain) ASC;`;
   //const dateSql = `SELECT date FROM dates ORDER BY date DESC LIMIT 1;`
 
   switch (tld) {
@@ -118,13 +120,13 @@ function searchDomains(req, res) {
         if (err) throw err;
         date = result[0].date.toString().replace(/(\d{4})(\d{2})(\d{2})/g, "$1-$2-$3")
       }) */
-      seCon.query(querySql, (err, result) => {
+      seDumpCon.query(querySql, (err, result) => {
         if (err) throw err;
         res.json(result);
       });
       break;
     case "nu":
-      nuCon.query(querySql, (err, result) => {
+      nuDumpCon.query(querySql, (err, result) => {
         if (err) throw err;
         res.json(result);
       });
