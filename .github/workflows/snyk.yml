@@ -3,8 +3,6 @@ name: axfrbackend Snyk Container Scanning
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   snyk:
