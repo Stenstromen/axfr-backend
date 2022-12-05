@@ -60,6 +60,8 @@ spec:
               secretKeyRef:
                 name: axfrbackendauthheaderpassword
                 key: password
+          - name: CORS_ORIGIN
+            value: https://axfr.se
           ports:
             - containerPort: 8080
       imagePullSecrets:
